@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WeWorkOut.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class UsersRolesDB : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public UsersRolesDB(DbContextOptions<UsersRolesDB> options)
             : base(options)
         {
         }

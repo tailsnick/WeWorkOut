@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +12,7 @@ using WeWorkOut.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WeWorkOut.Models;
 
 namespace WeWorkOut
 {
@@ -27,13 +28,16 @@ namespace WeWorkOut
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<UsersRolesDB>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<UsersRolesDB>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddDbContext<DB>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("DB")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
