@@ -12,12 +12,8 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ExcerciseID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SubmitDate)
-            </th>
+            <th>Exercise</th>
+            <th>Submit Date</th>
             <th></th>
         </tr>
     </thead>
@@ -25,7 +21,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ExcerciseID)
+                @Html.DisplayFor(modelItem => item.Exercise.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SubmitDate)

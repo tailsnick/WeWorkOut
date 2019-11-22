@@ -36,9 +36,10 @@ namespace WeWorkOut.Data
             // Seed some goals.  
             var goals = new Goal[]
             {
-                new Goal{Exercise = running, TargetMeasurementUnits="minutes", TargetMeasurementQuantity=20, Completed=false, Deadline=new DateTime(2019, 12, 25) },
-                new Goal{Exercise = running, TargetMeasurementUnits="miles",   TargetMeasurementQuantity=2,  Completed=false, Deadline=new DateTime(2020,  1,  1) },
-                new Goal{Exercise = pushups, TargetMeasurementUnits="reps",    TargetMeasurementQuantity=50, Completed=true,  Deadline=new DateTime(2019, 11,  3) }
+                new Goal{Exercise = running, TargetMeasurementUnits="minutes", TargetMeasurementQuantity=20, Completed=false, Deadline=new DateTime(2019, 12, 25)},
+                new Goal{Exercise = running, TargetMeasurementUnits="miles",   TargetMeasurementQuantity=2,  Completed=false, Deadline=new DateTime(2020,  1,  1)},
+                new Goal{Exercise = pushups, TargetMeasurementUnits="reps",    TargetMeasurementQuantity=30, Completed=true,  Deadline=new DateTime(2019, 11, 15)},
+                new Goal{Exercise = pushups, TargetMeasurementUnits="reps",    TargetMeasurementQuantity=50, Completed=false, Deadline=new DateTime(2019, 11,  3)}
             };
 
             foreach (Goal g in goals)

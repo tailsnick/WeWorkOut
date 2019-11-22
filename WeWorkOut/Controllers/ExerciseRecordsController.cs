@@ -22,7 +22,7 @@ namespace WeWorkOut.Controllers
         // GET: ExerciseRecords
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ExerciseRecord.ToListAsync());
+            return View(await _context.ExerciseRecord.Include(er => er.Exercise).ToListAsync());
         }
 
         // GET: ExerciseRecords/Details/5
@@ -34,6 +34,7 @@ namespace WeWorkOut.Controllers
             }
 
             var exerciseRecord = await _context.ExerciseRecord
+                .Include(er => er.Exercise)
                 .FirstOrDefaultAsync(m => m.ExerciseRecordID == id);
             if (exerciseRecord == null)
             {

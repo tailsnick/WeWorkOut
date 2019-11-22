@@ -10,15 +10,11 @@
     <h4>ExerciseRecord</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExcerciseID)
-        </dt>
+        <dt class = "col-sm-2">Exercise</dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExcerciseID)
+            @Html.DisplayFor(model => model.Exercise.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SubmitDate)
-        </dt>
+        <dt class = "col-sm-2">Submit Date</dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SubmitDate)
         </dd>
