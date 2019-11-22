@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeWorkOut.Data;
 
 namespace WeWorkOut.Migrations
 {
     [DbContext(typeof(DB))]
-    partial class DBModelSnapshot : ModelSnapshot
+    [Migration("20191122045524_ChangeQuantityFromIntToDouble")]
+    partial class ChangeQuantityFromIntToDouble
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,7 +97,7 @@ namespace WeWorkOut.Migrations
 
             modelBuilder.Entity("WeWorkOut.Models.Goal", b =>
                 {
-                    b.Property<int?>("GoalID")
+                    b.Property<int>("GoalID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -109,8 +111,8 @@ namespace WeWorkOut.Migrations
                     b.Property<int>("ExerciseID")
                         .HasColumnType("int");
 
-                    b.Property<double>("TargetMeasurementQuantity")
-                        .HasColumnType("float");
+                    b.Property<int>("TargetMeasurementQuantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("TargetMeasurementUnits")
                         .HasColumnType("nvarchar(max)");

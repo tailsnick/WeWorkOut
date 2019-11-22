@@ -18,6 +18,7 @@ namespace WeWorkOut.Models
         public bool AcceptsDistanceMeasurements { get; set; }
         public bool AcceptsTimeMeasurements { get; set; }
         public bool AcceptsWeightMeasurements { get; set; }
+        public bool AcceptsRepMeasurements { get; set; }
 
         // Creates a one to many relationship.  One exercise can have many records.
         public ICollection<ExerciseRecord> ExerciseRecords { get; set; }

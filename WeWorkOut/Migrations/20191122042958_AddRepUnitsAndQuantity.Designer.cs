@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeWorkOut.Data;
 
 namespace WeWorkOut.Migrations
 {
     [DbContext(typeof(DB))]
-    partial class DBModelSnapshot : ModelSnapshot
+    [Migration("20191122042958_AddRepUnitsAndQuantity")]
+    partial class AddRepUnitsAndQuantity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,8 +55,8 @@ namespace WeWorkOut.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double?>("DistanceQuantity")
-                        .HasColumnType("float");
+                    b.Property<int?>("DistanceQuantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("DistanceUnits")
                         .HasColumnType("nvarchar(max)");
@@ -65,8 +67,8 @@ namespace WeWorkOut.Migrations
                     b.Property<int?>("ExerciseID")
                         .HasColumnType("int");
 
-                    b.Property<double?>("RepQuantity")
-                        .HasColumnType("float");
+                    b.Property<int?>("RepQuantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("RepUnits")
                         .HasColumnType("nvarchar(max)");
@@ -74,14 +76,14 @@ namespace WeWorkOut.Migrations
                     b.Property<DateTime>("SubmitDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("TimeQuantity")
-                        .HasColumnType("float");
+                    b.Property<int?>("TimeQuantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("TimeUnits")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("WeightQuantity")
-                        .HasColumnType("float");
+                    b.Property<int?>("WeightQuantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("WeightUnits")
                         .HasColumnType("nvarchar(max)");
@@ -95,7 +97,7 @@ namespace WeWorkOut.Migrations
 
             modelBuilder.Entity("WeWorkOut.Models.Goal", b =>
                 {
-                    b.Property<int?>("GoalID")
+                    b.Property<int>("GoalID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -109,8 +111,8 @@ namespace WeWorkOut.Migrations
                     b.Property<int>("ExerciseID")
                         .HasColumnType("int");
 
-                    b.Property<double>("TargetMeasurementQuantity")
-                        .HasColumnType("float");
+                    b.Property<int>("TargetMeasurementQuantity")
+                        .HasColumnType("int");
 
                     b.Property<string>("TargetMeasurementUnits")
                         .HasColumnType("nvarchar(max)");

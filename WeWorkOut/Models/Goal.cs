@@ -10,14 +10,14 @@ namespace WeWorkOut.Models
     {
         // Database generated
         [Key]
-        public int GoalID { get; set; }
+        public int? GoalID { get; set; }
 
         // Foreign Key
         public int ExerciseID { get; set; }
         public Exercise Exercise { get; set; }
 
         // The target a user is hoping to acheive for this goal.
-        public int TargetMeasurementQuantity { get; set; }
+        public double TargetMeasurementQuantity { get; set; }
         public string TargetMeasurementUnits { get; set; }
 
         // Optional parameter if the user wants to set a deadline for when to hit their goal.

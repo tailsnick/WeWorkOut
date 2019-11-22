@@ -19,12 +19,15 @@ namespace WeWorkOut.Models
         public DateTime SubmitDate { get; set; }
 
         public string DistanceUnits { get; set; }
-        public int? DistanceQuantity { get; set; }
+        public double? DistanceQuantity { get; set; }
 
         public string TimeUnits { get; set; }
-        public int? TimeQuantity { get; set; }
+        public double? TimeQuantity { get; set; }
 
         public string WeightUnits { get; set; }
-        public int? WeightQuantity { get; set; }
+        public double? WeightQuantity { get; set; }
+
+        public string RepUnits { get; set; }
+        public double? RepQuantity { get; set; }
     }
 }

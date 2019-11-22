@@ -102,7 +102,7 @@ namespace WeWorkOut.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ExerciseExists(exercise.ExerciseID))
+                    if (!ExerciseExists((int)exercise.ExerciseID))
                     {
                         return NotFound();
                     }
