@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WeWorkOut.Models;
 using WeWorkOut.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WeWorkOut.Controllers
 {
+    [Authorize]
     public class ExerciseRecordsController : Controller
     {
         private readonly DB _context;
@@ -22,7 +24,16 @@ namespace WeWorkOut.Controllers
         // GET: ExerciseRecords
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ExerciseRecord.Include(er => er.Exercise).ToListAsync());
+            // Extract the user's ID.
+            string userID = User.Claims.First().Value;
+
+            // Get the exercise records associated with that user
+            List<ExerciseRecord> records = await _context.ExerciseRecord
+                .FromSqlInterpolated($"SELECT * FROM ExerciseRecord WHERE UserID={userID}")
+                .Include(er => er.Exercise)
+                .ToListAsync();
+
+            return View(records);
         }
 
         // GET: ExerciseRecords/Details/5

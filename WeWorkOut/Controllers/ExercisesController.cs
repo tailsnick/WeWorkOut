@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WeWorkOut.Models;
 using WeWorkOut.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WeWorkOut.Controllers
 {
+    [Authorize]
     public class ExercisesController : Controller
     {
         private readonly DB _context;

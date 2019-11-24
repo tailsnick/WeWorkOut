@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WeWorkOut.Models;
 using WeWorkOut.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WeWorkOut.Controllers
 {
+    [Authorize]
     public class GoalsController : Controller
     {
         private readonly DB _context;
@@ -22,9 +24,19 @@ namespace WeWorkOut.Controllers
         // GET: Goals
         public async Task<IActionResult> Index()
         {
-            var dB = _context.Goal.Include(g => g.Exercise);
-            ViewData["ExerciseOptions"] = await _context.Exercise.ToListAsync();  // The exercise options that will be availble for creating a new goal
-            return View(await dB.ToListAsync());
+            // The exercise options that will be availble for creating a new goal
+            ViewData["ExerciseOptions"] = await _context.Exercise.ToListAsync();
+
+            // Extract the user's ID.
+            string userID = User.Claims.First().Value;
+
+            // Get the goals associated with that user
+            List<Goal> goals = await _context.Goal
+                .FromSqlInterpolated($"SELECT * FROM Goal WHERE UserID={userID}")
+                .Include(g => g.Exercise)
+                .ToListAsync();
+            
+            return View(goals);
         }
 
         // GET: Goals/Details/5

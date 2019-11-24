@@ -22,8 +22,8 @@ namespace WeWorkOut.Data
                 var userManager = serviceProvider
                     .GetRequiredService<UserManager<IdentityUser>>();
 
-                var user1 = new IdentityUser { UserName = "Jane_Doe@example.com", Email = "Jane_Doe@example.com", EmailConfirmed = true };
-                var user2 = new IdentityUser { UserName = "John_Doe@example.com", Email = "John_Doe@example.com", EmailConfirmed = true };
+                var user1 = new IdentityUser { Id="1", UserName = "Jane_Doe@example.com", Email = "Jane_Doe@example.com", EmailConfirmed = true };
+                var user2 = new IdentityUser { Id="2", UserName = "John_Doe@example.com", Email = "John_Doe@example.com", EmailConfirmed = true };
 
                 await userManager.CreateAsync(user1, plainTextPassword);
                 await userManager.CreateAsync(user2, plainTextPassword);
