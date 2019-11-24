@@ -47,7 +47,30 @@
                 @Html.DisplayFor(modelItem => item.MeasurementQuantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MeasurementType)
+                @{
+                    ViewData["TimeUnits"] = "minutes";
+                    if (item.MeasurementType.Equals("Reps"))
+                    {
+                        @:ViewData["RepsUnits"]
+                    }
+                    else if (item.MeasurementType.Equals("Weight"))
+                    {
+                        @:ViewData["WeightUnits"]
+                    }
+                    else if (item.MeasurementType.Equals("Distance"))
+                    {
+                        @:ViewData["DistanceUnits"]
+                    }
+                    else if (item.MeasurementType.Equals("Time"))
+                    {
+                        <text>@ViewData["TimeUnits"]</text>
+                    }
+                    else
+                    {
+                        @:Some text
+                    }
+
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Deadline)

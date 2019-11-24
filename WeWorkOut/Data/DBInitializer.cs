@@ -39,7 +39,7 @@ namespace WeWorkOut.Data
                 new Goal{UserID="1", Exercise = running, MeasurementType="Time", MeasurementQuantity=20, Completed=false, Deadline=new DateTime(2019, 12, 25)},
                 new Goal{UserID="1", Exercise = running, MeasurementType="Time", MeasurementQuantity=2,  Completed=false, Deadline=new DateTime(2020,  1,  1)},
                 new Goal{UserID="1", Exercise = pushups, MeasurementType="Time", MeasurementQuantity=30, Completed=true,  Deadline=new DateTime(2019, 11, 15)},
-                new Goal{UserID="1", Exercise = pushups, MeasurementType="Time", MeasurementQuantity=50, Completed=false, Deadline=new DateTime(2019, 11,  3)}
+                new Goal{UserID="1", Exercise = pushups, MeasurementType="Reps", MeasurementQuantity=50, Completed=false, Deadline=new DateTime(2019, 11,  3)}
             };
 
             foreach (Goal g in goals)

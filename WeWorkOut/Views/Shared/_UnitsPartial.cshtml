@@ -1,0 +1,37 @@
+﻿<!--
+    This Partial exists soley to set the unit types (kg vs. lbs, km vs. mi) as ViewData components
+    that can be used throughout the application.  This simplifies the process of verifying which units
+    ought to be used when displaying data to the user.
+
+-->
+@{
+    @using Microsoft.AspNetCore.Identity
+    @using WeWorkOut.Areas.Identity;
+    @using System.Security.Claims;
+    @using Microsoft.AspNetCore.Http;
+    @inject SignInManager<ApplicationUser> SignInManager
+    @inject UserManager<ApplicationUser> UserManager
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        ApplicationUser currentUser = await UserManager.GetUserAsync(User);
+
+        // Customize weight and distance units based on user's preference for metric or imperial
+        if (currentUser.UseMetricUnits)
+        {
+            ViewData["WeightUnits"] = "kilograms (kg)";
+            ViewData["DistanceUnits"] = "kilometer (km)";
+        }
+        else
+        {
+            ViewData["WeightUnits"] = "pound (lb)";
+            ViewData["DistanceUnits"] = "miles (mi)";
+        }
+
+        // Keep  time and rep units standard
+        ViewData["TimeUnits"] = "minutes";
+        ViewData["RepsUnits"] = "reps";
+
+    }
+}
+

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeWorkOut.Data;
 
 namespace WeWorkOut.Data.Migrations
 {
     [DbContext(typeof(UsersRolesDB))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191124211122_ChangeFromIdentityUserToCustomApplicationUser")]
+    partial class ChangeFromIdentityUserToCustomApplicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -202,7 +204,7 @@ namespace WeWorkOut.Data.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("UseMetricUnits")
+                    b.Property<bool>("UseImperialUnits")
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")

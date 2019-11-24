@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WeWorkOut.Models;
+using WeWorkOut.Areas.Identity;
 
 namespace WeWorkOut
 {
@@ -31,7 +32,7 @@ namespace WeWorkOut
             services.AddDbContext<UsersRolesDB>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("UsersDB")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<UsersRolesDB>();
 
             services.AddDbContext<DB>(options =>
