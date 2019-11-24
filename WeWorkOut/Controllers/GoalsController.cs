@@ -23,6 +23,7 @@ namespace WeWorkOut.Controllers
         public async Task<IActionResult> Index()
         {
             var dB = _context.Goal.Include(g => g.Exercise);
+            ViewData["ExerciseOptions"] = await _context.Exercise.ToListAsync();  // The exercise options that will be availble for creating a new goal
             return View(await dB.ToListAsync());
         }
 

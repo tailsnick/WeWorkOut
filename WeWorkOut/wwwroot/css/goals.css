@@ -1,3 +1,8 @@
 ﻿.goals_table{
     color:red;
 }
+
+.goal_create{
+    background-color:lightblue;
+    padding: 10px;
+}

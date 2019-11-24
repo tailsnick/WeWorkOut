@@ -3,11 +3,23 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h1>Index</h1>
+<h1>My Exercise Goals</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="goal_create">
+    <h3>Create a new goal!</h3>
+    <label>Exercise</label>
+    <form>
+        <select name="exercises">
+            <option value="noneSelected"></option>
+            @foreach (Exercise e in (List<Exercise>)ViewData["ExerciseOptions"])
+            {
+                <option value=@e.Name>@e.Name</option>
+            }
+        </select>
+    </form>  
+</div>
+
+
 <table class="table goals_table">
     <thead>
         <tr>
@@ -32,10 +44,10 @@
                 @Html.DisplayFor(modelItem => item.Exercise.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TargetMeasurementQuantity)
+                @Html.DisplayFor(modelItem => item.MeasurementQuantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TargetMeasurementUnits)
+                @Html.DisplayFor(modelItem => item.MeasurementType)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Deadline)

@@ -24,12 +24,13 @@ namespace WeWorkOut
                 var services = scope.ServiceProvider;
                 try
                 {
+                    // Seed some exercises, goals, and exercise records
                     var context = services.GetRequiredService<DB>();
                     DBInitializer.Initialize(context);
 
-                    // At some point in the future, we'll use a modification of this code to seed the users
-                    //var usersContext = services.GetRequiredService<UsersRolesDB>();
-                    //UsersRolesDBInitializer.InitializeAsync(usersContext, services).Wait();
+                    // Seed the users DB
+                    var usersContext = services.GetRequiredService<UsersRolesDB>();
+                    UsersRolesDBInitializer.InitializeAsync(usersContext, services).Wait();
                 }
                 catch (Exception ex)
                 {

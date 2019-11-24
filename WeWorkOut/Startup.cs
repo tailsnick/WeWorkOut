@@ -30,14 +30,17 @@ namespace WeWorkOut
         {
             services.AddDbContext<UsersRolesDB>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("UsersDB")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<UsersRolesDB>();
+
+            services.AddDbContext<DB>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("MainDB")));
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddDbContext<DB>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DB")));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

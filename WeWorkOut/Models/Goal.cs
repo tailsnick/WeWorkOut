@@ -16,9 +16,14 @@ namespace WeWorkOut.Models
         public int ExerciseID { get; set; }
         public Exercise Exercise { get; set; }
 
-        // The target a user is hoping to acheive for this goal.
-        public double TargetMeasurementQuantity { get; set; }
-        public string TargetMeasurementUnits { get; set; }
+        // Ties an exercise record to the user that created it.  This is the same value
+        //   as the "ID" column of that IdentityUser
+        public string UserID { get; set; }
+
+        // The number a user is hoping to acheive for this goal.
+        public double MeasurementQuantity { get; set; }
+        // The type of measurement.  Will be one of "Reps", "Time", "Weight", or "Distance".
+        public string MeasurementType { get; set; }
 
         // Optional parameter if the user wants to set a deadline for when to hit their goal.
         public DateTime? Deadline { get; set; }

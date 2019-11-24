@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeWorkOut.Data;
 
 namespace WeWorkOut.Migrations
 {
     [DbContext(typeof(DB))]
-    partial class DBModelSnapshot : ModelSnapshot
+    [Migration("20191124191342_SimplifyModels")]
+    partial class SimplifyModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,9 +73,6 @@ namespace WeWorkOut.Migrations
                     b.Property<double?>("TimeQuantity")
                         .HasColumnType("float");
 
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double?>("WeightQuantity")
                         .HasColumnType("float");
 
@@ -104,9 +103,6 @@ namespace WeWorkOut.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("MeasurementType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserID")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GoalID");

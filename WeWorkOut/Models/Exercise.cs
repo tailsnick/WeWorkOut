@@ -15,10 +15,13 @@ namespace WeWorkOut.Models
         // The name of the excercise (i.e. running, deadlifts)
         public string Name { get; set; }
         
-        public bool AcceptsDistanceMeasurements { get; set; }
-        public bool AcceptsTimeMeasurements { get; set; }
-        public bool AcceptsWeightMeasurements { get; set; }
-        public bool AcceptsRepMeasurements { get; set; }
+        // Records the possible ways an exercise can be measured.
+        //   Ex: Can running be measured by distance? Yes.
+        //       Can running be measured by weight?   No.
+        public bool DistanceMeasurementsValid { get; set; }
+        public bool TimeMeasurementsValid { get; set; }
+        public bool WeightMeasurementsValid { get; set; }
+        public bool RepMeasurementsValid { get; set; }
 
         // Creates a one to many relationship.  One exercise can have many records.
         public ICollection<ExerciseRecord> ExerciseRecords { get; set; }
