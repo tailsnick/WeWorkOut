@@ -4,13 +4,43 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<link rel="stylesheet" href="~/css/records.css" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<h1>My Records</h1>
+
+<div class="record_create">
+    <h3>Add a record</h3>
+    <form>
+        <div class="form_group">
+            <label>Exercise</label>
+            <select name="exercises">
+                <option value="noneSelected"></option>
+                @foreach (Exercise e in (List<Exercise>)ViewData["ExerciseOptions"])
+                {
+                    <option value=@e.Name>@e.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form_group">
+            <label>Distance (miles)</label>
+            <input type="number" name="quantity" />
+        </div>
+        <div class="form_group">
+            <label>Time (minutes)</label>
+            <input type="number" name="quantity" />
+        </div>
+        <div class="form_group">
+            <button>Add</button>
+        </div>
+    </form>    
+</div>
+<div>
+    <a>Change Units</a>
+</div>
+
+
+<table class="table table-striped table-bordered records_table">
+    <thead class="thead-dark">
         <tr>
             <th>Exercise</th>
             <th>Submit Date</th>
@@ -27,9 +57,10 @@
                 @Html.DisplayFor(modelItem => item.SubmitDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ExerciseRecordID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ExerciseRecordID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ExerciseRecordID">Delete</a>
+                <form>
+                    <button>Modify</button>
+                    <button>Delete</button>
+                </form>
             </td>
         </tr>
 }

@@ -1,9 +1,9 @@
-﻿.goals_table{
+﻿.records_table {
     margin-top: 20px;
 }
 
-.goal_create{
-    background-color:lightblue;
+.record_create {
+    background-color: lightblue;
     padding: 10px;
     padding-bottom: 85px;
     border-radius: 10px;

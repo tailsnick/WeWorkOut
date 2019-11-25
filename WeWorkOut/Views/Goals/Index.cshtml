@@ -3,25 +3,50 @@
 @{
     ViewData["Title"] = "Index";
 }
+
+<link rel="stylesheet" href="~/css/goals.css" />
+
 <h1>My Exercise Goals</h1>
 
 <div class="goal_create">
     <h3>Create a new goal!</h3>
-    <label>Exercise</label>
     <form>
-        <select name="exercises">
-            <option value="noneSelected"></option>
-            @foreach (Exercise e in (List<Exercise>)ViewData["ExerciseOptions"])
-            {
-                <option value=@e.Name>@e.Name</option>
-            }
-        </select>
-    </form>  
+        <div class="form_group">
+            <label>Exercise</label>
+            <select name="exercises">
+                <option value="noneSelected"></option>
+                @foreach (Exercise e in (List<Exercise>)ViewData["ExerciseOptions"])
+                {
+                    <option value=@e.Name>@e.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form_group">
+            <label>Quantity</label>
+            <input type="number" name="quantity" />
+        </div>
+        <div class="form_group">
+            <label>Units</label>
+            <select name="units">
+                <option value="noneSelected"></option>
+                @foreach (Exercise e in (List<Exercise>)ViewData["ExerciseOptions"])
+                {
+                    <option value=@e.Name>@e.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form_group">
+            <button>Add</button>
+        </div>
+    </form>
+</div>
+<div>
+    <a>Change Units</a>
 </div>
 
 
-<table class="table goals_table">
-    <thead>
+<table class="table table-striped table-bordered goals_table">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Exercise)
@@ -38,52 +63,48 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Exercise.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MeasurementQuantity)
-            </td>
-            <td>
-                @{
-                    ViewData["TimeUnits"] = "minutes";
-                    if (item.MeasurementType.Equals("Reps"))
-                    {
-                        @:ViewData["RepsUnits"]
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Exercise.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MeasurementQuantity)
+                </td>
+                <td>
+                    @{
+                        if (item.MeasurementType.Equals("Reps"))
+                        {
+                            <text>@TempData["RepsUnits"]</text>
+                        }
+                        else if (item.MeasurementType.Equals("Weight"))
+                        {
+                            <text>@TempData["WeightUnits"]</text>
+                        }
+                        else if (item.MeasurementType.Equals("Distance"))
+                        {
+                            <text>@TempData["DistanceUnits"]</text>
+                        }
+                        else if (item.MeasurementType.Equals("Time"))
+                        {
+                            <text>@TempData["TimeUnits"]</text>
+                        }
                     }
-                    else if (item.MeasurementType.Equals("Weight"))
-                    {
-                        @:ViewData["WeightUnits"]
-                    }
-                    else if (item.MeasurementType.Equals("Distance"))
-                    {
-                        @:ViewData["DistanceUnits"]
-                    }
-                    else if (item.MeasurementType.Equals("Time"))
-                    {
-                        <text>@ViewData["TimeUnits"]</text>
-                    }
-                    else
-                    {
-                        @:Some text
-                    }
-
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Deadline)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Completed)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.GoalID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.GoalID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.GoalID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Deadline)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Completed)
+                </td>
+                <td>
+                    <form>
+                        <button>Modify</button>
+                        <button>Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
 </table>

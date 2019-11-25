@@ -24,6 +24,9 @@ namespace WeWorkOut.Controllers
         // GET: ExerciseRecords
         public async Task<IActionResult> Index()
         {
+            // The exercise options that will be availble for creating a new goal
+            ViewData["ExerciseOptions"] = await _context.Exercise.ToListAsync();
+
             // Extract the user's ID.
             string userID = User.Claims.First().Value;
 

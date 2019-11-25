@@ -19,18 +19,18 @@
         // Customize weight and distance units based on user's preference for metric or imperial
         if (currentUser.UseMetricUnits)
         {
-            ViewData["WeightUnits"] = "kilograms (kg)";
-            ViewData["DistanceUnits"] = "kilometer (km)";
+            TempData["DistanceUnits"] = "kilometer (km)";
+            TempData["WeightUnits"] = "kilogram (kg)";
         }
         else
         {
-            ViewData["WeightUnits"] = "pound (lb)";
-            ViewData["DistanceUnits"] = "miles (mi)";
+            TempData["DistanceUnits"] = "miles (mi)";
+            TempData["WeightUnits"] = "pounds (lb)";
         }
 
         // Keep  time and rep units standard
-        ViewData["TimeUnits"] = "minutes";
-        ViewData["RepsUnits"] = "reps";
+        TempData["TimeUnits"] = "minutes";
+        TempData["RepsUnits"] = "reps";
 
     }
 }
