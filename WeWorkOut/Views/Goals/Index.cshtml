@@ -11,31 +11,34 @@
 <div class="goal_create">
     <h3>Create a new goal!</h3>
     <form>
-        <div class="form_group">
+        <div class="form_section">
             <label>Exercise</label>
-            <select name="exercises">
-                <option value="noneSelected"></option>
+            <select name="exercise" id="exercises_select" onchange="exercise_option_changed();">
                 @foreach (Exercise e in (List<Exercise>)ViewData["ExerciseOptions"])
                 {
                     <option value=@e.Name>@e.Name</option>
                 }
             </select>
         </div>
-        <div class="form_group">
+        <div class="form_section">
             <label>Quantity</label>
             <input type="number" name="quantity" />
         </div>
-        <div class="form_group">
+        <div class="form_section">
             <label>Units</label>
-            <select name="units">
-                <option value="noneSelected"></option>
-                @foreach (Exercise e in (List<Exercise>)ViewData["ExerciseOptions"])
-                {
-                    <option value=@e.Name>@e.Name</option>
-                }
+            <select name="units" id="units_select">
+                <option id="noneOption" value="noneSelected"></option>
+                <option id="weightOption" value="weight">@TempData["WeightUnits"]</option>
+                <option id="distanceOption" value="distance">@TempData["DistanceUnits"]</option>
+                <option id="timeOption" value="time">@TempData["TimeUnits"]</option>
+                <option id="repsOption" value="reps">@TempData["RepsUnits"]</option>
             </select>
         </div>
-        <div class="form_group">
+        <div class="form_section">
+            <label>Completion Date (optional)</label>
+            <input type="date" name="bday">
+        </div>
+        <div class="form_section">
             <button>Add</button>
         </div>
     </form>
@@ -106,5 +109,7 @@
                 </td>
             </tr>
         }
-        </tbody>
+    </tbody>
 </table>
+
+<script type="text/javascript" src="~/js/goals.js"></script>

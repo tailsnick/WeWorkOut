@@ -21,6 +21,34 @@ namespace WeWorkOut.Controllers
             _context = context;
         }
 
+        // Determine the validity for all units for a given exercise.
+        public async Task<JsonResult> GetValidUnits(string exerciseName)
+        {
+            Exercise e = await _context.Exercise
+                .FromSqlInterpolated($"SELECT * FROM Exercise WHERE Name={exerciseName}")
+                .FirstOrDefaultAsync();
+
+            if (e != null)
+            {
+                return Json(new
+                {
+                    success = true,
+                    weightValid = e.WeightMeasurementsValid,
+                    distanceValid = e.DistanceMeasurementsValid,
+                    timeValid = e.TimeMeasurementsValid,
+                    repsValid = e.RepMeasurementsValid
+                }); ;
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false
+                });
+            }
+        }
+
+
         // GET: Exercises
         public async Task<IActionResult> Index()
         {            
