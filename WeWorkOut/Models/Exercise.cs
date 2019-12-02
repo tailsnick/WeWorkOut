@@ -23,6 +23,9 @@ namespace WeWorkOut.Models
         public bool WeightMeasurementsValid { get; set; }
         public bool RepMeasurementsValid { get; set; }
 
+        //String Containing HTML for that Exercise
+        public string HTMLDescription { get; set; }
+
         // Creates a one to many relationship.  One exercise can have many records.
         public ICollection<ExerciseRecord> ExerciseRecords { get; set; }
 

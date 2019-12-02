@@ -1,8 +1,66 @@
-﻿@{
+﻿<!--/////////////////////////////////////////////////////////////////////////////////////////////////
+    Index: HOME PAGE
+
+    Author: Rachel Hoffman
+    Description: This is the home page for the website. It is designed to be simple and easy to use.
+ ////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<link rel="stylesheet" href="~/css/home.css" />
+
+<div>
+    <table>
+        <tr>
+            <td>
+                <button onclick="location.href='@Url.Action("Index", "Goals")'">   @*Insert Image in here*@   GOALS   </button>
+            </td>
+            <td>
+                <button onclick="location.href='@Url.Action("Index", "ExerciseRecords")'">RECORD DATA</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="location.href='@Url.Action("Index", "Progress")'">VIEW PROGRESS</button>
+            </td>
+            <td>
+                <button onclick="location.href='@Url.Action("Index", "Exercises")'">WORKOUT GUIDE</button>
+            </td>
+        </tr>
+    </table>
 </div>
+
+
+<!--
+    CSS
+
+    button {
+    display: inline-block;
+    height: 134px;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+    width: 104px;
+}
+
+#close-image img {
+    display: block;
+    height: 130px;
+    width: 100px;
+}
+
+#close-CSS {
+    background-image: url( 'http://thinkingstiff.com/images/matt.jpg' );
+    background-size: 100px 130px;
+    height: 134px;
+    width: 104px;
+}
+
+
+    HTML
+    <button id="close-image"><img src="http://thinkingstiff.com/images/matt.jpg"></button>
+    <button id="close-CSS"></button>
+
+-->

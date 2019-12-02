@@ -1,0 +1,20 @@
+﻿<!--/////////////////////////////////////////////////////////////////////////////////////////////////
+    Index: PROGRESS VIEW
+
+    Author: Rachel Hoffman
+    Description: This is page is for the a user to look at their progress of their goals they set.
+ ////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+@model IEnumerable<WeWorkOut.Models.Exercise>
+@{
+    ViewData["Title"] = "Progress Measurment";
+    var exercise = ViewData["ExerciseOptions"];
+    var goals = ViewData["UserGoals"];
+    var records = ViewData["UserRecords"];
+}
+
+<h1>My Progress</h1>
+
+<!--Create some kind of Foreach loop of the goals that creates a bar area with the text and then the collapse button-->
+<!--In the collapse area, have the graph be featured here.-->

@@ -20,9 +20,9 @@ namespace WeWorkOut.Data
             }
 
             // Seed some exercises. 
-            Exercise running = new Exercise { Name = "Running",  DistanceMeasurementsValid = true,  TimeMeasurementsValid = true,  RepMeasurementsValid = false, WeightMeasurementsValid = false };
-            Exercise squats  = new Exercise { Name = "Squats",   DistanceMeasurementsValid = false, TimeMeasurementsValid = false, RepMeasurementsValid = true,  WeightMeasurementsValid = true };
-            Exercise pushups = new Exercise { Name = "Push-ups", DistanceMeasurementsValid = false, TimeMeasurementsValid = false, RepMeasurementsValid = true,  WeightMeasurementsValid = false };
+            Exercise running = new Exercise { Name = "Running",  DistanceMeasurementsValid = true,  TimeMeasurementsValid = true,  RepMeasurementsValid = false, WeightMeasurementsValid = false, HTMLDescription = "PLACE HOLDER" };
+            Exercise squats  = new Exercise { Name = "Squats",   DistanceMeasurementsValid = false, TimeMeasurementsValid = false, RepMeasurementsValid = true,  WeightMeasurementsValid = true, HTMLDescription = "PLACE HOLDER" };
+            Exercise pushups = new Exercise { Name = "Push-ups", DistanceMeasurementsValid = false, TimeMeasurementsValid = false, RepMeasurementsValid = true,  WeightMeasurementsValid = false, HTMLDescription = "PLACE HOLDER" };
             
             var exercises = new Exercise[] { running, squats, pushups };
 
