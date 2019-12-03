@@ -26,22 +26,49 @@ namespace WeWorkOut.Controllers
             // The exercise options that will be availble for creating a new goal
             ViewData["ExerciseOptions"] = await _context.Exercise.ToListAsync();
 
+            
+
             // Extract the user's ID.
             string userID = User.Claims.First().Value;
 
-            // Get the goals associated with that user
-            ViewData["UserGoals"] = await _context.Goal
-                .FromSqlInterpolated($"SELECT * FROM Goal WHERE UserID={userID}")
-                .Include(g => g.Exercise)
+            List<Goal> userGoals = await _context.Goal
+                .FromSqlInterpolated($"SELECT * FROM Goal WHERE UserID={userID}") //ORDER BY ExerciseID
                 .ToListAsync();
 
+            return View(userGoals);
+        }
+
+        //Get data for that exercise, from the user, and sends it back to the javascript
+        public async Task<JsonResult> GetSubmitedData(int exerciseID)
+        {
+            //////////////PLACE HOLDER CODE!!!!!!!//////////
+            
+            // Extract the user's ID.
+            string userID = User.Claims.First().Value;
+
             // Get the exercise records associated with that user
-            ViewData["UserRecords"] = await _context.ExerciseRecord
-                .FromSqlInterpolated($"SELECT * FROM ExerciseRecord WHERE UserID={userID}")
+            List<ExerciseRecord> records = await _context.ExerciseRecord
+                .FromSqlInterpolated($"SELECT * FROM ExerciseRecord WHERE ExcerciseID={exerciseID} AND UserID={userID}")
                 .Include(er => er.Exercise)
                 .ToListAsync();
 
-            return View();
+            if (records != null)
+            {
+                return Json(new
+                {
+                    success = true,
+                    
+                }); ;
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false
+                });
+            }
+
+            //////////////////////////////////////////////////
         }
     }
 }

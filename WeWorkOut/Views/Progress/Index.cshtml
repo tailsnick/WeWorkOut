@@ -6,15 +6,24 @@
  ////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
 
-@model IEnumerable<WeWorkOut.Models.Exercise>
+@model IEnumerable<WeWorkOut.Models.Goal>
 @{
     ViewData["Title"] = "Progress Measurment";
-    var exercise = ViewData["ExerciseOptions"];
-    var goals = ViewData["UserGoals"];
-    var records = ViewData["UserRecords"];
 }
 
 <h1>My Progress</h1>
 
+@foreach (var item in Model)
+{
+    <div class="card card-body">
+        Goal: @Html.DisplayFor(modelItem => item.MeasurementQuantity) @Html.DisplayFor(modelItem => item.MeasurementType) @Html.DisplayFor(modelItem => item.Exercise.Name)
+        Date: @Html.DisplayFor(modelItem => item.Deadline.Value.Month)/@Html.DisplayFor(modelItem => item.Deadline.Value.Day)/@Html.DisplayFor(modelItem => item.Deadline.Value.Year)
+        <button type="button" data-toggle="collapse" data-target="#collapse @item.GoalID" aria-expanded="false" aria-controls="collapse @item.GoalID">>Expand</button>
+    </div>
+    <div class="collapse" id="collapse @item.GoalID">
+    </div>
+}
+
+<script></script>
 <!--Create some kind of Foreach loop of the goals that creates a bar area with the text and then the collapse button-->
 <!--In the collapse area, have the graph be featured here.-->

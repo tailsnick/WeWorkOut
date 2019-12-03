@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using WeWorkOut.Models;
 using WeWorkOut.Data;
 using Microsoft.AspNetCore.Authorization;
+using System.Web;
 
 namespace WeWorkOut.Controllers
 {
@@ -53,6 +54,28 @@ namespace WeWorkOut.Controllers
         public async Task<IActionResult> Index()
         {            
             return View(await _context.Exercise.ToListAsync());
+        }
+
+
+        // Get HTML guide for the description of the exerciseName
+        [HttpPost]
+        public async Task<JsonResult> GetGuide(string exerciseName)
+        {
+            Exercise e = await _context.Exercise
+                .FromSqlInterpolated($"SELECT * FROM Exercise WHERE Name={exerciseName}")
+                .FirstOrDefaultAsync();
+
+            //encoded
+            string desc = e.HTMLDescription;
+
+            //decoded
+            desc = HttpUtility.HtmlDecode(desc);
+
+            return Json(new
+            {
+                success = true,
+                htmlDesc = desc
+            });
         }
 
         // GET: Exercises/Details/5
