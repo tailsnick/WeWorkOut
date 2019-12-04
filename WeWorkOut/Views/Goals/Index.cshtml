@@ -45,7 +45,7 @@
     </form>
 </div>
 <div>
-    <a>Change Units</a>
+    <a href="Identity/Account/Manage">Change Units</a>
 </div>
 
 
@@ -69,12 +69,15 @@
     <tbody>
         @foreach (var item in Model)
         {
+            string goalID = item.GoalID.ToString();
+            
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Exercise.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MeasurementQuantity)
+                    <text id=@("quantity_"+goalID)>@Html.DisplayFor(modelItem => item.MeasurementQuantity)</text>
+                    <input type="number" id=@("modify_quantity_" + goalID) style="display: none"  />
                 </td>
                 <td>
                     @{
@@ -97,16 +100,15 @@
                     }
                 </td>
                 <td>
-                    @item.Deadline?.ToString("yyyy/MM/dd")
+                    <text id=@("date_" + goalID)>@item.Deadline?.ToString("yyyy/MM/dd")</text>
+                    <input id=@("modify_date_" + goalID) type="date" name="date_input" style="display: none">
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Completed)
                 </td>
                 <td>
-                    <form>
-                        <button>Modify</button>
-                        <button>Delete</button>
-                    </form>
+                    <button id=@("modify_edit_button_" + goalID) onclick="modify_edit_goal(@goalID)">Modify</button>
+                    <button id=@("modify_submit_button_" + goalID) onclick="modify_submit_goal(@goalID)" style="display: none">Submit</button>
                 </td>
             </tr>
         }

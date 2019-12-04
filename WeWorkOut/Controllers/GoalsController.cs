@@ -19,13 +19,7 @@ namespace WeWorkOut.Controllers
         public GoalsController(DB context)
         {
             _context = context;
-        }
-
-        
-        
-        
-        
-        
+        }   
         
         // GET: Goals
         public async Task<IActionResult> Index()
@@ -136,6 +130,28 @@ namespace WeWorkOut.Controllers
             }
             ViewData["ExerciseID"] = new SelectList(_context.Exercise, "ExerciseID", "ExerciseID", goal.ExerciseID);
             return View(goal);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> EditGoal(int id, double newQuantity, DateTime newDeadline)
+        { 
+            Goal goal = await _context.Goal
+                .Include(g => g.Exercise)
+                .FirstOrDefaultAsync(m => m.GoalID == id);
+            
+            goal.MeasurementQuantity = newQuantity;
+            goal.Deadline = newDeadline;
+
+            // TODO: Calculate if the goal was completed.  If a user changes the measurement quantity
+            //   for a goal, it could change whether the goal is reached or not.
+
+            _context.Update(goal);
+            await _context.SaveChangesAsync();
+
+            return Json(new
+            {
+                success = false
+            });
         }
 
         // POST: Goals/Edit/5

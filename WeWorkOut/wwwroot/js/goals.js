@@ -3,13 +3,13 @@ function make_annoying_alert() {
     alert("Hey! Hey! Hey!");
 }
 
-// Another function.
+// Changes the available units for a goal once the user has selected an exercise
 function exercise_option_changed() {
     var selected_option = $("#exercises_select").val();
 
     // As soon as an exercise is selected, these options become unavailable to the user
-    element_show_hide($("#unitsNoneOption"), false); 
-    element_show_hide($("#exerciseNoneOption"), false); 
+    option_show_hide($("#unitsNoneOption"), false); 
+    option_show_hide($("#exerciseNoneOption"), false); 
     
     $.ajax(
         {
@@ -21,10 +21,10 @@ function exercise_option_changed() {
             }
         }).done(function (result) {   
             // Show/hide the options in the units select
-            element_show_hide($("#weightOption"), result.weightValid);
-            element_show_hide($("#distanceOption"), result.distanceValid);
-            element_show_hide($("#timeOption"), result.timeValid);
-            element_show_hide($("#repsOption"), result.repsValid);
+            option_show_hide($("#weightOption"), result.weightValid);
+            option_show_hide($("#distanceOption"), result.distanceValid);
+            option_show_hide($("#timeOption"), result.timeValid);
+            option_show_hide($("#repsOption"), result.repsValid);
 
             // Set the selected option for the units to the first visible option
             var options = $("#units_select")[0].options;
@@ -45,12 +45,12 @@ function exercise_option_changed() {
 
 }
 
-// Shows or hides an element based on the boolean value 'show' provided
-function element_show_hide(element, show) {
+// Shows or hides an option based on the boolean value 'show' provided
+function option_show_hide(option, show) {
     if (show)
-        element.show();
+        option.show();
     else
-        element.hide();
+        option.hide();
 }
 
 function create_goal(e) {
@@ -78,6 +78,61 @@ function create_goal(e) {
             console.log(textStatus);
             console.log(errorThrown);
         }).always(function () { });
+}
+
+function modify_edit_goal(goalID) {
+    // Show and hide the appropriate stuff
+    $("#quantity_" + goalID).hide();
+    $("#date_" + goalID).hide();
+    $("#modify_edit_button_" + goalID).hide();
+
+    var prev_quantity = $("#quantity_" + goalID).text();
+    var prev_date = $("#date_" + goalID).text().replace('/', '-').replace('/', '-');
+
+    $("#modify_quantity_" + goalID).show();
+    $("#modify_date_" + goalID).show();
+    $("#modify_submit_button_" + goalID).show();
+
+    // Put the already existing data into the editable inputs so the user can see what they're editing
+    $("#modify_quantity_" + goalID).val(prev_quantity);
+    $("#modify_date_" + goalID).val(prev_date);
+}
+
+function modify_submit_goal(goalID) {
+    var new_quantity = $("#modify_quantity_" + goalID).val();
+    var new_date = $("#modify_date_" + goalID).val();
+
+    $.ajax(
+        {
+            url: "Goals/EditGoal",
+            method: "POST",
+            data:
+            {
+                id: goalID,
+                newQuantity: new_quantity,
+                newDeadline: new_date
+            }
+        }).done(function (result) {
+            alert("Success!")
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log("failed: ");
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        }).always(function () { });
+
+    // Show and hide the appropriate stuff
+    $("#quantity_" + goalID).show();
+    $("#date_" + goalID).show();
+    $("#modify_edit_button_" + goalID).show();
+
+    $("#modify_quantity_" + goalID).hide();
+    $("#modify_date_" + goalID).hide();
+    $("#modify_submit_button_" + goalID).hide();
+
+    // Change the updates in the table
+    $("#quantity_" + goalID).text(new_quantity);
+    $("#date_" + goalID).text(new_date.replace('-', '/').replace('-', '/'));
 
 
 }

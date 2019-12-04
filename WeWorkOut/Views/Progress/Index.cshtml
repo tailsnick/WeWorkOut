@@ -17,7 +17,7 @@
 {
     <div class="card card-body">
         Goal: @Html.DisplayFor(modelItem => item.MeasurementQuantity) @Html.DisplayFor(modelItem => item.MeasurementType) @Html.DisplayFor(modelItem => item.Exercise.Name)
-        Date: @Html.DisplayFor(modelItem => item.Deadline.Value.Month)/@Html.DisplayFor(modelItem => item.Deadline.Value.Day)/@Html.DisplayFor(modelItem => item.Deadline.Value.Year)
+        @*Date: @Html.DisplayFor(modelItem => item.Deadline.Value.Month)/@Html.DisplayFor(modelItem => item.Deadline.Value.Day)/@Html.DisplayFor(modelItem => item.Deadline.Value.Year)*@
         <button type="button" data-toggle="collapse" data-target="#collapse @item.GoalID" aria-expanded="false" aria-controls="collapse @item.GoalID">>Expand</button>
     </div>
     <div class="collapse" id="collapse @item.GoalID">
