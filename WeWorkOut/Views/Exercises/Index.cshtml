@@ -1,35 +1,38 @@
-﻿@model IEnumerable<WeWorkOut.Models.Exercise>
+﻿<!--/////////////////////////////////////////////////////////////////////////////////////////////////
+    Index: WORK GUIDE
+
+    Author: Rachel Hoffman
+    Description: This is the page users can go to learn about how to do the excercises.
+ ////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+@model IEnumerable<WeWorkOut.Models.Exercise>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Work Out Guide";
 }
 
-<h1>Index</h1>
+    <h1>Work Out Guide</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ExerciseID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ExerciseID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ExerciseID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="container">
+        <div class="row">
+            <div class="scrolling-wrapper col-2">
+                <div class="btn-group-vertical">
+                    @foreach (var item in Model)
+                    {
+                        <button type="button" onclick="loadRun(@item.Name);" class="btn btn-info">@Html.DisplayFor(modelItem => item.Name)</button>
+                    }
+                </div>
+            </div>
+
+            <div id="guideRenderArea" style="background-color:red;" class="col-10">
+                <!-- Here is where the text and images will show up when an exercise is picked. -->
+            </div>
+        </div>
+    </div>
+<a href="~/StaticPage.html">wth</a>
+
+<script src="~/js/guide.js">
+
+</script>
+
+
