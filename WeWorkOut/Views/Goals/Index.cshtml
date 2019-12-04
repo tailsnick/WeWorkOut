@@ -10,10 +10,11 @@
 
 <div class="goal_create">
     <h3>Create a new goal!</h3>
-    <form>
+    <form onsubmit="create_goal(event);">
         <div class="form_section">
             <label>Exercise</label>
             <select name="exercise" id="exercises_select" onchange="exercise_option_changed();">
+                <option id="exerciseNoneOption"></option>
                 @foreach (Exercise e in (List<Exercise>)ViewData["ExerciseOptions"])
                 {
                     <option value=@e.Name>@e.Name</option>
@@ -22,24 +23,24 @@
         </div>
         <div class="form_section">
             <label>Quantity</label>
-            <input type="number" name="quantity" />
+            <input type="number" name="quantity" id="quantity_input" required />
         </div>
         <div class="form_section">
             <label>Units</label>
             <select name="units" id="units_select">
-                <option id="noneOption" value="noneSelected"></option>
-                <option id="weightOption" value="weight">@TempData["WeightUnits"]</option>
-                <option id="distanceOption" value="distance">@TempData["DistanceUnits"]</option>
-                <option id="timeOption" value="time">@TempData["TimeUnits"]</option>
-                <option id="repsOption" value="reps">@TempData["RepsUnits"]</option>
+                <option id="unitsNoneOption" value="noneSelected"></option>
+                <option id="weightOption" value="Weight" style="display: none">@TempData["WeightUnits"]</option>
+                <option id="distanceOption" value="Distance" style="display: none">@TempData["DistanceUnits"]</option>
+                <option id="timeOption" value="Time" style="display: none">@TempData["TimeUnits"]</option>
+                <option id="repsOption" value="Reps" style="display: none">@TempData["RepsUnits"]</option>
             </select>
         </div>
         <div class="form_section">
             <label>Completion Date (optional)</label>
-            <input type="date" name="bday">
+            <input type="date" name="date_input" id="date_input">
         </div>
         <div class="form_section">
-            <button>Add</button>
+            <button type="submit">Add</button>
         </div>
     </form>
 </div>
@@ -96,7 +97,7 @@
                     }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Deadline)
+                    @item.Deadline?.ToString("yyyy/MM/dd")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Completed)

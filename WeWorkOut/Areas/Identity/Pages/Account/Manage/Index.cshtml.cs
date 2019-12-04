@@ -121,13 +121,13 @@ namespace WeWorkOut.Areas.Identity.Pages.Account.Manage
                     {
                         if (user.UseMetricUnits)
                         {
-                            // Convert from imperial to metric (1 lb = 0.45359 kg).
-                            g.MeasurementQuantity *= 0.45359;   // Multiply instead of divide to avoid dividing by zero
+                            // Convert from imperial to metric (1kg = 2.2lbs)
+                            g.MeasurementQuantity = Math.Round(g.MeasurementQuantity / 2.204623, 2);
                         }
                         else
                         {
-                            // Convert from metric to imperial (1 kg = 2.2046 lbs)
-                            g.MeasurementQuantity *= 2.2046;  // Multiply instead of divide to avoid dividing by zero
+                            // Convert from metric to imperial (1kg = 2.2lbs)
+                            g.MeasurementQuantity = Math.Round(g.MeasurementQuantity * 2.204623, 2);
                         }
                         _context.Update(g);
                         await _context.SaveChangesAsync();
@@ -136,13 +136,13 @@ namespace WeWorkOut.Areas.Identity.Pages.Account.Manage
                     {
                         if (user.UseMetricUnits)
                         {
-                            // Convert from imperial to metric (1 mi = 1.6093 km).
-                            g.MeasurementQuantity *= 1.6093;   // Multiply instead of divide to avoid dividing by zero
+                            // Convert from imperial to metric (1 mi = 1.6 km)
+                            g.MeasurementQuantity = Math.Round(g.MeasurementQuantity * 1.609344, 2);
                         }
                         else
                         {
-                            // Convert from metric to imperial (1 km = 0.62137 mi)
-                            g.MeasurementQuantity *= 0.62137;  // Multiply instead of divide to avoid dividing by zero
+                            // Convert from metric to imperial (1 mi = 1.6 km)
+                            g.MeasurementQuantity = Math.Round(g.MeasurementQuantity / 1.609344, 2);
                         }
                         _context.Update(g);
                         await _context.SaveChangesAsync();
@@ -163,26 +163,28 @@ namespace WeWorkOut.Areas.Identity.Pages.Account.Manage
                     {
                         if (user.UseMetricUnits)
                         {
-                            // Convert from imperial to metric (1 lb = 0.45359 kg).
-                            er.WeightQuantity *= 0.45359;   // Multiply instead of divide to avoid dividing by zero
+                            // Convert from imperial to metric (1 kg = 2.204623 lbs).
+                            er.WeightQuantity = Math.Round((double)er.WeightQuantity / 2.204623, 2);
                         }
                         else
                         {
-                            // Convert from metric to imperial (1 kg = 2.2046 lbs)
-                            er.WeightQuantity *= 2.2046;  // Multiply instead of divide to avoid dividing by zero
+                            // Convert from metric to imperial (1 kg = 2.204623 lbs).
+                            er.WeightQuantity = Math.Round((double)er.WeightQuantity * 2.204623, 2);
+                            
                         }
                     }
                     if (er.DistanceQuantity != null)
                     {
                         if (user.UseMetricUnits)
                         {
-                            // Convert from imperial to metric (1 mi = 1.6093 km).
-                            er.DistanceQuantity *= 1.6093;   // Multiply instead of divide to avoid dividing by zero
+                            // Convert from imperial to metric (1 mi = 1.1.609344 km).
+                            er.DistanceQuantity = Math.Round((double)er.DistanceQuantity * 1.609344, 2);
                         }
                         else
                         {
-                            // Convert from metric to imperial (1 km = 0.62137 mi)
-                            er.DistanceQuantity *= 0.62137;  // Multiply instead of divide to avoid dividing by zero
+                            // Convert from metric to imperial (1 mi = 1.1.609344 km).
+                            er.DistanceQuantity = Math.Round((double)er.DistanceQuantity / 1.609344, 2);
+
                         }
                     }
 
