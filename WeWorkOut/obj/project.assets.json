@@ -8516,23 +8516,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tails\\.nuget\\packages\\": {},
+    "C:\\Users\\14357\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tails\\Desktop\\CS 4540 - Web\\WeWorkOut\\WeWorkOut\\WeWorkOut.csproj",
+      "projectUniqueName": "C:\\Users\\14357\\source\\repos\\WeWorkOut\\WeWorkOut\\WeWorkOut.csproj",
       "projectName": "WeWorkOut",
-      "projectPath": "C:\\Users\\tails\\Desktop\\CS 4540 - Web\\WeWorkOut\\WeWorkOut\\WeWorkOut.csproj",
-      "packagesPath": "C:\\Users\\tails\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tails\\Desktop\\CS 4540 - Web\\WeWorkOut\\WeWorkOut\\obj\\",
+      "projectPath": "C:\\Users\\14357\\source\\repos\\WeWorkOut\\WeWorkOut\\WeWorkOut.csproj",
+      "packagesPath": "C:\\Users\\14357\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\14357\\source\\repos\\WeWorkOut\\WeWorkOut\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\tails\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\14357\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -1,29 +1,51 @@
 ﻿function placeHolderFunction(ExerciseID, GoalType, GoalNum, GoalDeadline) {
     alert("GUIDE HERE");
 
-    $.ajax(
-        {
-            url: "Progress/GetSubmittedData",
-            method: "POST",
-            data:
+    
+}
+
+
+
+
+function open_collapsible(goalID, exerciseID, exerciseName, quantity, measurementType, deadline) {
+
+    var collapsible = $("#collapsible_" + goalID)[0];
+
+    if (collapsible.style.display === "block") {
+        collapsible.style.display = "none";
+    }
+    else {
+        collapsible.style.display = "block";
+
+        // Query the DB for all exercise records that are relevant to the goal
+        var records;
+        $.ajax(
             {
-                exerciseID: ExerciseID,
-                goalType: GoalType
-            },
-            dataType: "json"
-        }).done(function (result) {
+                url: "Progress/GetSubmittedData",
+                method: "POST",
+                data:
+                {
+                    exerciseID: exerciseID,
+                    measurementType: measurementType
+                }
+            }).done(function (result) {
+                alert("Got something from the DB!");
 
-            //////////////PLACE HOLDER CODE!!!!!!!//////////
-            if (GoalDeadline == null) {
 
-            }
-            else {
+            }).fail(function (jqXHR, textStatus, errorThrown) {
 
-            }
+            }).always(function () { });
 
-            //////////////////////////////////////////////////
 
-        }).fail(function (jqXHR, textStatus, errorThrown) {
 
-}).always(function () { });
+
+
+    }
+
+    
+
+
+
+    
+
 }

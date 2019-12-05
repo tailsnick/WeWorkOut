@@ -11,23 +11,52 @@
     ViewData["Title"] = "Progress Measurment";
 }
 
+<link rel="stylesheet" href="~/css/progress.css" />
+<script src="~/js/progress.js"></script>
+
 <h1>My Progress</h1>
 
 @foreach (var item in Model)
 {
-<div class="card card-body">
-    Goal: @Html.DisplayFor(modelItem => item.MeasurementQuantity) @Html.DisplayFor(modelItem => item.MeasurementType) @Html.DisplayFor(modelItem => item.Exercise.Name)
-    
-    <!--If a date was not set.-->
-    @if (item.Deadline != null)
+    int goalID = (int)item.GoalID;
+    int exerciseID = (int)item.Exercise.ExerciseID;
+    string exerciseName = item.Exercise.Name;
+    double quantity = item.MeasurementQuantity;
+    string measurementType = item.MeasurementType;
+
+    string units = "";
+    switch (measurementType)
     {
-        @Html.Raw("Date: "); @Html.DisplayFor(modelItem => item.Deadline.Value.Month) @Html.Raw("  /  "); @Html.DisplayFor(modelItem => item.Deadline.Value.Day) @Html.Raw("  /  "); @Html.DisplayFor(modelItem => item.Deadline.Value.Year)
+        case "Weight":
+            units = (string)TempData["WeightUnits"];
+            break;
+        case "Distance":
+            units = (string)TempData["DistanceUnits"];
+            break;
+        case "Reps":
+            units = (string)TempData["RepsUnits"];
+            break;
+        case "Time":
+            units = (string)TempData["TimeUnits"];
+            break;
     }
 
-    <button type="button" data-toggle="collapse" data-target="#collapse @item.GoalID" aria-expanded="false" aria-controls="collapse @item.GoalID">>Expand</button>
-</div>
-    <div class="collapse" id="collapse @item.GoalID">
+    string deadline = item.Deadline?.ToString("yyyy/MM/dd") ?? "(None)";
+
+    string caption = "Goal: " + exerciseName + " " + quantity + " " + units + ".  Deadline: " + deadline;
+
+    <div class="card card-body">
+        @caption
+
+        @*<button type="button" data-toggle="collapse" data-target="#collapse @item.GoalID" aria-expanded="false" aria-controls="collapse @item.GoalID">>Expand</button>*@
+        <button type="button" class="collapsible" onclick="open_collapsible(@goalID, '@exerciseID', '@exerciseName', @quantity, '@measurementType', '@deadline')">Open Collapsible</button>
+        <div id=@("collapsible_" + goalID) class="content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+
     </div>
+
 }
 
 <script></script>
