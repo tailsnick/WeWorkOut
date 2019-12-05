@@ -1,49 +1,25 @@
-﻿function placeHolderFunction(ExerciseID, GoalType, GoalNum) {
+﻿function placeHolderFunction(ExerciseID, GoalType, GoalNum, GoalDeadline) {
     alert("GUIDE HERE");
 
     $.ajax(
         {
-            url: "Progress/GetSubmitedData",
+            url: "Progress/GetSubmittedData",
             method: "POST",
             data:
             {
-                exerciseID: ExerciseID
+                exerciseID: ExerciseID,
+                goalType: GoalType
             },
             dataType: "json"
         }).done(function (result) {
 
             //////////////PLACE HOLDER CODE!!!!!!!//////////
+            if (GoalDeadline == null) {
 
-            //Use the graph here.
-            /*if (GoalType == "Time") {
-    foreach(var record in result)
-    {
-        Console.WriteLine(record.TimeQuantity);
-        Console.WriteLine(record.SubmitDate);
-    }
-}
-if (GoalType == "Weight") {
-    foreach(var record in result)
-    {
-        Console.WriteLine(record.WeightQuantity);
-        Console.WriteLine(record.SubmitDate);
-    }
-}
-if (GoalType == "Reps") {
-    foreach(var record in result)
-    {
-        Console.WriteLine(record.RepQuantity);
-        Console.WriteLine(record.SubmitDate);
-    }
-}
-if (GoalType == "Distance") {
-    foreach(var record in result)
-    {
-        Console.WriteLine(record.DistanceQuantity);
-        Console.WriteLine(record.SubmitDate);
-    }
-}
-}*/
+            }
+            else {
+
+            }
 
             //////////////////////////////////////////////////
 
