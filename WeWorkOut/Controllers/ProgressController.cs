@@ -68,21 +68,64 @@ namespace WeWorkOut.Controllers
                 .OrderBy(o=>o.SubmitDate)
                 .ToListAsync();
 
+            switch (measurementType)
+            {
+                case "Distance":
+                    return Json(new
+                    {
+                        data = records.Select(record => new
+                        {
+                            x = record.SubmitDate,
+                            y = record.DistanceQuantity
+                        })
+                    }); ;
+                case "Time":
+                    return Json(new
+                    {
+                        data = records.Select(record => new
+                        {
+                            x = record.SubmitDate,
+                            y = record.TimeQuantity
+                        })
+                    }); ;
+                case "Weight":
+                    return Json(new
+                    {
+                        data = records.Select(record => new
+                        {
+                            x = record.SubmitDate,
+                            y = record.WeightQuantity
+                        })
+                    }); ;
+                case "Reps":
+                    return Json(new
+                    {
+                        data = records.Select(record => new
+                        {
+                            x = record.SubmitDate,
+                            y = record.RepQuantity
+                        })
+                    });
+            }
 
 
 
-            JsonResult test = Json(new {
+
+
+
+
+
+
+
+
+            return Json(new
+            {
                 data = records.Select(record => new
                 {
                     x = record.SubmitDate,
                     y = record.TimeQuantity
-                })});
-
-
-
-
-
-            return test;
+                })
+            }); ;
 
 
 

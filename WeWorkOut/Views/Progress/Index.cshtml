@@ -12,7 +12,30 @@
 }
 
 <link rel="stylesheet" href="~/css/progress.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="~/js/progress.js"></script>
+@*<script src="~/chart_experiments/ChartExperiments.js"></script>*@
+
+
+@*<style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>*@
+
+
+
+
+<body>
+    <div style="width:75%;">
+        <canvas id="canvas" style="background-color: dimgray"></canvas>
+    </div>
+</body>
+
 
 <h1>My Progress</h1>
 
@@ -49,9 +72,9 @@
         @caption
 
         @*<button type="button" data-toggle="collapse" data-target="#collapse @item.GoalID" aria-expanded="false" aria-controls="collapse @item.GoalID">>Expand</button>*@
-        <button type="button" class="collapsible" onclick="open_collapsible(@goalID, '@exerciseID', '@exerciseName', @quantity, '@measurementType', '@deadline')">Open Collapsible</button>
+        <button type="button" id=@("expand_button_" + goalID) class="collapsible" onclick="open_collapsible(@goalID, '@exerciseID', '@exerciseName', @quantity, '@measurementType', '@units', '@item.Deadline')">Expand Chart</button>
         <div id=@("collapsible_" + goalID) class="content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <canvas id=@("canvas_" + goalID) style="background-color: dimgray;" ></canvas>
         </div>
 
 
