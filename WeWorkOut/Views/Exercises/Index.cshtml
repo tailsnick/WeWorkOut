@@ -11,6 +11,7 @@
     ViewData["Title"] = "Work Out Guide";
 }
 
+    <script src="~/js/guide.js"></script>
     <h1>Work Out Guide</h1>
 
     <div class="container">
@@ -19,20 +20,18 @@
                 <div class="btn-group-vertical">
                     @foreach (var item in Model)
                     {
-                        <button type="button" onclick="loadRun(@item.Name);" class="btn btn-info">@Html.DisplayFor(modelItem => item.Name)</button>
+                    <button type="button" onclick="getGuide(@item.Name)" class="btn btn-info">@item.Name</button>
                     }
                 </div>
             </div>
 
-            <div id="guideRenderArea" style="background-color:red;" class="col-10">
+            <div id="guideRenderArea"  class="col-10">
                 <!-- Here is where the text and images will show up when an exercise is picked. -->
             </div>
         </div>
     </div>
 <a href="~/StaticPage.html">wth</a>
 
-<script src="~/js/guide.js">
 
-</script>
 
 

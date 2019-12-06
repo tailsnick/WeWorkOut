@@ -1,4 +1,4 @@
-﻿function loadRun(eName) {
+﻿function getGuide(eName) {
     alert("GUIDE HERE");
 
     $.ajax(
