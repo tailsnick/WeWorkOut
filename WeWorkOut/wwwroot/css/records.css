@@ -13,7 +13,7 @@ input, label {
     display: block;
 }
 
-.form_group {
+.form_section {
     float: left;
     padding: 10px;
 }

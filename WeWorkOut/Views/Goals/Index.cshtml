@@ -5,6 +5,7 @@
 }
 
 <link rel="stylesheet" href="~/css/goals.css" />
+<script type="text/javascript" src="~/js/goals.js"></script>
 
 <h1>My Exercise Goals</h1>
 
@@ -49,7 +50,7 @@
 </div>
 
 
-<table class="table table-striped table-bordered goals_table">
+<table id="goals_table" class="table table-striped table-bordered goals_table">
     <thead class="thead-dark">
         <tr>
             <th>
@@ -59,9 +60,6 @@
             <th>Units</th>
             <th>
                 @Html.DisplayNameFor(model => model.Deadline)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Completed)
             </th>
             <th></th>
         </tr>
@@ -104,15 +102,13 @@
                     <input id=@("modify_date_" + goalID) type="date" name="date_input" style="display: none">
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Completed)
-                </td>
-                <td>
                     <button id=@("modify_edit_button_" + goalID) onclick="modify_edit_goal(@goalID)">Modify</button>
                     <button id=@("modify_submit_button_" + goalID) onclick="modify_submit_goal(@goalID)" style="display: none">Submit</button>
+                    <button id=@("delete_button_" + goalID) onclick="delete_goal('@goalID')">Delete</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<script type="text/javascript" src="~/js/goals.js"></script>
+

@@ -19,8 +19,20 @@ namespace WeWorkOut.Controllers
         public GoalsController(DB context)
         {
             _context = context;
-        }   
-        
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> DeleteConfirmed(int id)
+        {
+            var goal = await _context.Goal.FindAsync(id);
+            _context.Goal.Remove(goal);
+            await _context.SaveChangesAsync();
+            return Json(new
+            {
+                success = true
+            });
+        }
+
         // GET: Goals
         public async Task<IActionResult> Index()
         {
@@ -39,31 +51,6 @@ namespace WeWorkOut.Controllers
             return View(goals);
         }
 
-        // GET: Goals/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var goal = await _context.Goal
-                .Include(g => g.Exercise)
-                .FirstOrDefaultAsync(m => m.GoalID == id);
-            if (goal == null)
-            {
-                return NotFound();
-            }
-
-            return View(goal);
-        }
-
-        // GET: Goals/Create
-        public IActionResult Create()
-        {
-            ViewData["ExerciseID"] = new SelectList(_context.Exercise, "ExerciseID", "ExerciseID");
-            return View();
-        }
 
         //// POST: Goals/Create
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -114,24 +101,7 @@ namespace WeWorkOut.Controllers
                 success = false
             });
         }
-
-        // GET: Goals/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var goal = await _context.Goal.FindAsync(id);
-            if (goal == null)
-            {
-                return NotFound();
-            }
-            ViewData["ExerciseID"] = new SelectList(_context.Exercise, "ExerciseID", "ExerciseID", goal.ExerciseID);
-            return View(goal);
-        }
-
+        
         [HttpPost]
         public async Task<JsonResult> EditGoal(int id, double newQuantity, DateTime newDeadline)
         { 
@@ -142,9 +112,6 @@ namespace WeWorkOut.Controllers
             goal.MeasurementQuantity = newQuantity;
             goal.Deadline = newDeadline;
 
-            // TODO: Calculate if the goal was completed.  If a user changes the measurement quantity
-            //   for a goal, it could change whether the goal is reached or not.
-
             _context.Update(goal);
             await _context.SaveChangesAsync();
 
@@ -154,75 +121,5 @@ namespace WeWorkOut.Controllers
             });
         }
 
-        // POST: Goals/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GoalID,ExerciseID,TargetMeasurementQuantity,TargetMeasurementUnits,Deadline,Completed")] Goal goal)
-        {
-            if (id != goal.GoalID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(goal);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!GoalExists((int)goal.GoalID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ExerciseID"] = new SelectList(_context.Exercise, "ExerciseID", "ExerciseID", goal.ExerciseID);
-            return View(goal);
-        }
-
-        // GET: Goals/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var goal = await _context.Goal
-                .Include(g => g.Exercise)
-                .FirstOrDefaultAsync(m => m.GoalID == id);
-            if (goal == null)
-            {
-                return NotFound();
-            }
-
-            return View(goal);
-        }
-
-        // POST: Goals/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var goal = await _context.Goal.FindAsync(id);
-            _context.Goal.Remove(goal);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool GoalExists(int id)
-        {
-            return _context.Goal.Any(e => e.GoalID == id);
-        }
     }
 }

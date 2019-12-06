@@ -1,20 +1,47 @@
 ﻿// Allows a user to create a new goal
-function create_goal(e) {
+function create_record(e) {
     e.preventDefault();
+
+    var exercise = $("#exercises_select").val();
+
+    var weight_quantity;
+    if ($('#weight_section').is(':visible')) {
+        weight_quantity = $("#weight_quantity_input").val();
+    }
+
+    var distance_quantity;
+    if ($('#distance_section').is(':visible')) {
+        distance_quantity = $("#distance_quantity_input").val();
+    }
+
+    var time_quantity;
+    if ($('#time_section').is(':visible')) {
+        time_quantity = $("#time_quantity_input").val();
+    }
+
+    var reps_quantity;
+    if ($('#reps_section').is(':visible')) {
+        reps_quantity = $("#reps_quantity_input").val();
+    }
+
+
+
 
     $.ajax(
         {
-            url: "Goals/CreateNewGoal",
+            url: "ExerciseRecords/CreateNewExerciseRecord",
             method: "POST",
             data:
             {
-                exercise: $(exercises_select).val(),
-                quantity: $(quantity_input).val(),
-                unitsType: $(units_select).val(),
-                completionDate: $(date_input).val()
+                exercise: exercise,
+                weightQuantity: weight_quantity,
+                distanceQuantity: distance_quantity,
+                timeQuantity: time_quantity,
+                repsQuantity: reps_quantity,
+                submitDate: $("#date_input").val()
             }
         }).done(function (result) {
-            alert("Success!  Refresh to see your new goal.")
+            alert("Success!  Refresh to see your new record.")
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log("failed: ");
             console.log(jqXHR);
@@ -24,22 +51,22 @@ function create_goal(e) {
 }
 
 // Allows a user to delete one of their goals.
-function delete_goal(goalID) {
-    if (confirm("Delete this goal?")) {
+function delete_record(recordID) {
+    if (confirm("Delete this record?")) {
         // Do the deleting
         $.ajax(
             {
-                url: "Goals/DeleteConfirmed",
+                url: "ExerciseRecords/DeleteConfirmed",
                 method: "POST",
                 data:
                 {
-                    id: goalID
+                    id: recordID
                 }
             }).done(function (result) {
                 // Delete the row from the table
-                var delete_button = $("#delete_button_" + goalID)[0];
+                var delete_button = $("#delete_button_" + recordID)[0];
                 var rowIndex = delete_button.parentElement.parentElement.rowIndex;
-                $("#goals_table")[0].deleteRow(rowIndex);
+                $("#records_table")[0].deleteRow(rowIndex);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 console.log("failed: ");
                 console.log(jqXHR);
@@ -57,7 +84,6 @@ function exercise_option_changed() {
     var selected_option = $("#exercises_select").val();
 
     // As soon as an exercise is selected, these options become unavailable to the user
-    element_show_hide($("#unitsNoneOption"), false); 
     element_show_hide($("#exerciseNoneOption"), false); 
     
     $.ajax(
@@ -69,22 +95,12 @@ function exercise_option_changed() {
                 exerciseName : selected_option
             }
         }).done(function (result) {   
-            // Show/hide the options in the units select
-            element_show_hide($("#weightOption"), result.weightValid);
-            element_show_hide($("#distanceOption"), result.distanceValid);
-            element_show_hide($("#timeOption"), result.timeValid);
-            element_show_hide($("#repsOption"), result.repsValid);
-
-            // Set the selected option for the units to the first visible option
-            var options = $("#units_select")[0].options;
-            for (i = 0; i < options.length; i++) {
-                var option = options[i];
-                var displayStatus = option.style.display;   // Visibility status of an option
-                if (!(displayStatus === "none")) {
-                    $("#units_select")[0].selectedIndex = i;    // Set the selected option to this option
-                    i = options.length;
-                }
-            }
+            // Show/hide the unit fields
+            element_show_hide($("#weight_section"), result.weightValid);
+            element_show_hide($("#distance_section"), result.distanceValid);
+            element_show_hide($("#time_section"), result.timeValid);
+            element_show_hide($("#reps_section"), result.repsValid);
+    
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log("failed: ");
             console.log(jqXHR);

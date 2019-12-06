@@ -21,6 +21,18 @@ namespace WeWorkOut.Controllers
             _context = context;
         }
 
+        [HttpPost]
+        public async Task<JsonResult> DeleteConfirmed(int id)
+        {
+            var exerciseRecord = await _context.ExerciseRecord.FindAsync(id);
+            _context.ExerciseRecord.Remove(exerciseRecord);
+            await _context.SaveChangesAsync();
+            return Json(new
+            {
+                success = true
+            });
+        }
+
         // GET: ExerciseRecords
         public async Task<IActionResult> Index()
         {
@@ -39,130 +51,32 @@ namespace WeWorkOut.Controllers
             return View(records);
         }
 
-        // GET: ExerciseRecords/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var exerciseRecord = await _context.ExerciseRecord
-                .Include(er => er.Exercise)
-                .FirstOrDefaultAsync(m => m.ExerciseRecordID == id);
-            if (exerciseRecord == null)
-            {
-                return NotFound();
-            }
-
-            return View(exerciseRecord);
-        }
-
-        // GET: ExerciseRecords/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ExerciseRecords/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ExerciseRecordID,ExcerciseID,SubmitDate")] ExerciseRecord exerciseRecord)
+        public async Task<JsonResult> CreateNewExerciseRecord(string exercise, double? weightQuantity, double? distanceQuantity, double? timeQuantity, double? repsQuantity, DateTime submitDate)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(exerciseRecord);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(exerciseRecord);
-        }
+            Exercise e = await _context.Exercise
+                .FromSqlInterpolated($"SELECT * FROM Exercise WHERE Name={exercise}")
+                .FirstOrDefaultAsync();
 
-        // GET: ExerciseRecords/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            ExerciseRecord er = new ExerciseRecord() {
+                Exercise = e,
+                ExcerciseID = e.ExerciseID,
+                UserID = User.Claims.First().Value,
+                WeightQuantity = weightQuantity,
+                DistanceQuantity = distanceQuantity,
+                TimeQuantity = timeQuantity,
+                RepQuantity = repsQuantity,
+                SubmitDate = submitDate
+            };
 
-            var exerciseRecord = await _context.ExerciseRecord.FindAsync(id);
-            if (exerciseRecord == null)
-            {
-                return NotFound();
-            }
-            return View(exerciseRecord);
-        }
-
-        // POST: ExerciseRecords/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ExerciseRecordID,ExcerciseID,SubmitDate")] ExerciseRecord exerciseRecord)
-        {
-            if (id != exerciseRecord.ExerciseRecordID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(exerciseRecord);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ExerciseRecordExists((int)exerciseRecord.ExerciseRecordID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(exerciseRecord);
-        }
-
-        // GET: ExerciseRecords/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var exerciseRecord = await _context.ExerciseRecord
-                .FirstOrDefaultAsync(m => m.ExerciseRecordID == id);
-            if (exerciseRecord == null)
-            {
-                return NotFound();
-            }
-
-            return View(exerciseRecord);
-        }
-
-        // POST: ExerciseRecords/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var exerciseRecord = await _context.ExerciseRecord.FindAsync(id);
-            _context.ExerciseRecord.Remove(exerciseRecord);
+            _context.Add(er);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return Json(new
+            {
+                success = false
+            });
         }
 
-        private bool ExerciseRecordExists(int id)
-        {
-            return _context.ExerciseRecord.Any(e => e.ExerciseRecordID == id);
-        }
     }
 }

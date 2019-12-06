@@ -102,9 +102,15 @@ function newestDate(date1, date2, date3) {
 
 function get_chart_configuration(exerciseName, quantity, units, deadline, data) {
     // CHART DATA:
+
+    var chart_title = exerciseName + " Goal: " + quantity + " " + units;
+    if (data.length == 0) {
+        chart_title = chart_title + "(No Recorded Data)";
+    }
+
+
     var x_axis_label = "DATE";
     var y_axis_label = units.toUpperCase();
-    var chart_title = exerciseName + " Goal: " + quantity + " " + units;
     var data_label = exerciseName.toUpperCase();
     var goal_label = "GOAL";
     var deadline_label = "DEADLINE";
@@ -310,22 +316,3 @@ function get_chart_configuration(exerciseName, quantity, units, deadline, data) 
 
     return config;
 }
-
-window.onload = function () {
-    var data = [{
-        x: new Date(2019, 11, 24),
-        y: 5
-    }, {
-        x: new Date(2019, 11, 25),
-        y: 10
-    }, {
-        x: new Date(2019, 11, 26),
-        y: 8
-    }, {
-        x: new Date(2019, 11, 27),
-        y: 11
-    }];
-    var ctx = document.getElementById('canvas').getContext('2d');
-    var config = this.get_chart_configuration("Running", 12, "miles", "11/30/2019 12:00:00 AM", data);
-    new Chart(ctx, config);
-};

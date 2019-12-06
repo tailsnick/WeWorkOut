@@ -5,64 +5,136 @@
 }
 
 <link rel="stylesheet" href="~/css/records.css" />
+<script type="text/javascript" src="~/js/records.js"></script>
 
 <h1>My Records</h1>
 
 <div class="record_create">
-    <h3>Add a record</h3>
-    <form>
-        <div class="form_group">
+    <h3>Create a new record!</h3>
+    <form onsubmit="create_record(event);">
+        <div class="form_section">
             <label>Exercise</label>
-            <select name="exercises">
-                <option value="noneSelected"></option>
+            <select name="exercise" id="exercises_select" onchange="exercise_option_changed();">
+                <option id="exerciseNoneOption"></option>
                 @foreach (Exercise e in (List<Exercise>)ViewData["ExerciseOptions"])
                 {
                     <option value=@e.Name>@e.Name</option>
                 }
             </select>
         </div>
-        <div class="form_group">
-            <label>Distance (miles)</label>
-            <input type="number" name="quantity" />
+        <div id="weight_section" class="form_section" style="display: none">
+            <label id="weight_label">@TempData["WeightUnits"]</label>
+            <input type="number" id="weight_quantity_input"/>
         </div>
-        <div class="form_group">
-            <label>Time (minutes)</label>
-            <input type="number" name="quantity" />
+        <div id="distance_section" class="form_section" style="display: none">
+            <label id="distance_label">@TempData["DistanceUnits"]</label>
+            <input type="number" id="distance_quantity_input" />
         </div>
-        <div class="form_group">
-            <button>Add</button>
+        <div id="time_section" class="form_section" style="display: none">
+            <label id="time_label">@TempData["TimeUnits"]</label>
+            <input type="number" id="time_quantity_input" />
         </div>
-    </form>    
+        <div id="reps_section" class="form_section" style="display: none">
+            <label id="reps_label">@TempData["RepsUnits"]</label>
+            <input type="number" id="reps_quantity_input" />
+        </div>
+        <div class="form_section">
+            <label>Date</label>
+            <input type="date" id="date_input" required>
+        </div>
+        <div class="form_section">
+            <button type="submit">Add</button>
+        </div>
+    </form>
 </div>
 <div>
-    <a>Change Units</a>
+    <a href="Identity/Account/Manage">Change Units</a>
 </div>
 
 
-<table class="table table-striped table-bordered records_table">
+<table id="records_table" class="table table-striped table-bordered records_table">
     <thead class="thead-dark">
         <tr>
             <th>Exercise</th>
+            <th>Distance</th>
+            <th>Weight</th>
+            <th>Time</th>
+            <th>Reps</th>
             <th>Submit Date</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+        @foreach (var item in Model)
+        {
+        <tr id='@("row_for_record_" + item.ExerciseRecordID)'>
             <td>
                 @Html.DisplayFor(modelItem => item.Exercise.Name)
+            </td>
+            <td>
+                @{
+                    string distanceText;
+                    if (item.DistanceQuantity == null)
+                    {
+                        distanceText = "NA";
+                    }
+                    else
+                    {
+                        distanceText = item.DistanceQuantity.ToString() + ' ' + TempData["DistanceUnits"];
+                    }
+                }
+                @distanceText
+            </td>
+            <td>
+                @{
+                    string weightText;
+                    if (item.WeightQuantity == null)
+                    {
+                        weightText = "NA";
+                    }
+                    else
+                    {
+                        weightText = item.WeightQuantity.ToString() + ' ' + TempData["WeightUnits"];
+                    }
+                }
+                @weightText
+            </td>
+            <td>
+                @{
+                    string timeText;
+                    if (item.TimeQuantity == null)
+                    {
+                        timeText = "NA";
+                    }
+                    else
+                    {
+                        timeText = item.TimeQuantity.ToString() + ' ' + TempData["TimeUnits"];
+                    }
+                }
+                @timeText
+            </td>
+            <td>
+                @{
+                    string repsText;
+                    if (item.RepQuantity == null)
+                    {
+                        repsText = "NA";
+                    }
+                    else
+                    {
+                        repsText = item.RepQuantity.ToString() + ' ' + TempData["RepsUnits"];
+                    }
+                }
+                @repsText
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SubmitDate)
             </td>
             <td>
-                <form>
-                    <button>Modify</button>
-                    <button>Delete</button>
-                </form>
+                <button>Modify</button>
+                <button id=@("delete_button_" + item.ExerciseRecordID) onclick="delete_record('@item.ExerciseRecordID')">Delete</button>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
