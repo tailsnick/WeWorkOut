@@ -22,6 +22,11 @@ namespace WeWorkOut.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Exercise.ToListAsync());
+        }
+
         // Determine the validity for all units for a given exercise.
         [HttpPost]
         public async Task<JsonResult> GetValidUnits(string exerciseName)

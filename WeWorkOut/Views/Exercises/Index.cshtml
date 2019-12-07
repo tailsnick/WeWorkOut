@@ -1,0 +1,36 @@
+﻿<!--/////////////////////////////////////////////////////////////////////////////////////////////////
+    Index: WORK GUIDE
+
+    Author: Rachel Hoffman
+    Description: This is the page users can go to learn about how to do the excercises.
+ ////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+@model IEnumerable<WeWorkOut.Models.Exercise>
+
+@{
+    ViewData["Title"] = "Work Out Guide";
+}
+
+    <script src="~/js/guide.js"></script>
+    <h1>Work Out Guide</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="scrolling-wrapper col-2">
+                <div class="btn-group-vertical">
+                    @foreach (var item in Model)
+                    {
+                    <button type="button" onclick="getGuide('@item.Name')" class="btn btn-info">@item.Name</button>
+                    }
+                </div>
+            </div>
+
+            <div id="guideRenderArea"  class="col-10">
+                <!-- Here is where the text and images will show up when an exercise is picked. -->
+            </div>
+        </div>
+    </div>
+
+
+
+
